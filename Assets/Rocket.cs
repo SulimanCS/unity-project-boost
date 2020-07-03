@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour {
 
@@ -27,8 +26,13 @@ public class Rocket : MonoBehaviour {
       case "Friendly":
         print("WOAH FRIENDLY BOI");
         break;
+      case "Finish":
+        print("NEXT LEVEL");
+        SceneManager.LoadScene(1);
+        break;
       default:
         print("YOU MESSED UP");
+        SceneManager.LoadScene(0);
         // kill player
         break;
     }
