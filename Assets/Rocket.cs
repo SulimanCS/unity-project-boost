@@ -20,11 +20,15 @@ public class Rocket : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
-    Thrust();
-    Rotate();
+    if (state == State.Alive) {
+      Thrust();
+      Rotate();
+    }
   }
 
   void OnCollisionEnter(Collision collision) {
+    if (state != State.Alive) return;
+
     switch (collision.gameObject.tag) {
       case "Friendly":
         print("WOAH FRIENDLY BOI");
