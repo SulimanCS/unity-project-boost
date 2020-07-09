@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 1101503047}
   - component: {fileID: 2751497039147046195}
   - component: {fileID: 1101503049}
+  - component: {fileID: -2913544996339183720}
   m_Layer: 0
   m_Name: Rocket Ship
   m_TagString: Untagged
@@ -538,12 +539,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rcsThrust: 150
   mainThrust: 2000
+  levelLoadDelay: 2
   mainEngine: {fileID: 8300000, guid: 34aca09b237015b4983d0b871907ad58, type: 3}
   success: {fileID: 8300000, guid: 8398e548c98c96842b98f440c3119e51, type: 3}
   death: {fileID: 8300000, guid: 04524693ee25f7042b83a9389093b23f, type: 3}
   mainEngineParticles: {fileID: 198100719123677532}
   successParticles: {fileID: 198631066067818878}
   deathParticles: {fileID: 198204746252468268}
+--- !u!114 &-2913544996339183720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404268615105169321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88a5e33daa3cc7458b235507efa4c09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 0}
 --- !u!1001 &51923552
 PrefabInstance:
   m_ObjectHideFlags: 0
