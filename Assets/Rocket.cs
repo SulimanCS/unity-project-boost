@@ -34,6 +34,7 @@ public class Rocket : MonoBehaviour {
     if (state == State.Alive) {
       RespondToThrustInput();
       RespondToRotateInput();
+      RespondToRestartInput();
     }
     if (Debug.isDebugBuild) RespondToDebugKeys();
   }
@@ -65,6 +66,10 @@ public class Rocket : MonoBehaviour {
       rigidBody.angularVelocity = Vector3.zero; // remove rotation due to physics
       transform.Rotate(-Vector3.forward * rotationThisFrame);
     }
+  }
+
+  private void RespondToRestartInput() {
+    if (Input.GetKey(KeyCode.R)) LoadFirstLevel();
   }
 
   private void RespondToDebugKeys() {
