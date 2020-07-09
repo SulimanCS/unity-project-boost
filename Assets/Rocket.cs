@@ -38,6 +38,37 @@ public class Rocket : MonoBehaviour {
     if (Debug.isDebugBuild) RespondToDebugKeys();
   }
 
+  private void RespondToThrustInput() {
+    if (Input.GetKey(KeyCode.Space)) {
+      ApplyThrust();
+    }
+    else {
+      audioSource.Stop();
+      mainEngineParticles.Stop();
+    }
+  }
+
+  private void ApplyThrust() {
+    rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+    if (!audioSource.isPlaying) audioSource.PlayOneShot(mainEngine);
+    if (!mainEngineParticles.isPlaying) mainEngineParticles.Play();
+  }
+
+  private void RespondToRotateInput() {
+    rigidBody.freezeRotation = true; // take manual control of rotation
+
+    float rotationThisFrame = rcsThrust * Time.deltaTime;
+
+    if (Input.GetKey(KeyCode.A)) {
+      transform.Rotate(Vector3.forward * rotationThisFrame);
+    }
+    else if (Input.GetKey(KeyCode.D)) {
+      transform.Rotate(-Vector3.forward * rotationThisFrame);
+    }
+
+    rigidBody.freezeRotation = false; // resume physics control of rotation
+  }
+
   private void RespondToDebugKeys() {
     if (Input.GetKeyDown(KeyCode.L)) LoadNextLevel();
     if (Input.GetKeyDown(KeyCode.C)) collisionsDisabled = !collisionsDisabled;
@@ -48,16 +79,12 @@ public class Rocket : MonoBehaviour {
 
     switch (collision.gameObject.tag) {
       case "Friendly":
-        print("WOAH FRIENDLY BOI");
         break;
       case "Finish":
-        print("NEXT LEVEL");
         StartSuccessSequence();
         break;
       default:
-        print("YOU MESSED UP");
         StartDeathSequence();
-        // kill player
         break;
     }
   }
@@ -80,10 +107,6 @@ public class Rocket : MonoBehaviour {
     Invoke("LoadFirstLevel", levelLoadDelay);
   }
 
-  private void LoadFirstLevel() {
-    SceneManager.LoadScene(0);
-  }
-
   private void LoadNextLevel() {
     int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     int nextSceneIndex = currentSceneIndex + 1;
@@ -91,34 +114,8 @@ public class Rocket : MonoBehaviour {
     SceneManager.LoadScene(nextSceneIndex);
   }
 
-  private void RespondToRotateInput() {
-    rigidBody.freezeRotation = true; // take manual control of rotation
-
-    float rotationThisFrame = rcsThrust * Time.deltaTime;
-
-    if (Input.GetKey(KeyCode.A)) {
-      transform.Rotate(Vector3.forward * rotationThisFrame);
-    }
-    else if (Input.GetKey(KeyCode.D)) {
-      transform.Rotate(-Vector3.forward * rotationThisFrame);
-    }
-
-    rigidBody.freezeRotation = false; // resume physics control of rotation
+  private void LoadFirstLevel() {
+    SceneManager.LoadScene(0);
   }
 
-  private void RespondToThrustInput() {
-    if (Input.GetKey(KeyCode.Space)) {
-      ApplyThrust();
-    }
-    else {
-      audioSource.Stop();
-      mainEngineParticles.Stop();
-    }
-  }
-
-  private void ApplyThrust() {
-    rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-    if (!audioSource.isPlaying) audioSource.PlayOneShot(mainEngine);
-    if (!mainEngineParticles.isPlaying) mainEngineParticles.Play();
-  }
 }
