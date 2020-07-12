@@ -25,8 +25,11 @@ public class Timer : MonoBehaviour {
     // stop timer if player reaches the last level
     if (currentSceneIndex == SceneManager.sceneCountInBuildSettings - 1) {
       if (savedTime == 0) savedTime = t;
+
+      // stop t from increasing, i.e: reset it to where the timer stopped
+      // after we reached last level
       t = savedTime;
-    };
+    }
 
     // timer (minutes/seconds) logic
     string minutes = ((int)t / 60).ToString();
