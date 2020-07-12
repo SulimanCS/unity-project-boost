@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVector: {x: 10, y: 10, z: 0}
-  period: 2
+  period: 3.5
   movementFactor: 0
 --- !u!4 &1458688330 stripped
 Transform:
@@ -817,7 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6b3c2d5119619408e6c141f38a7f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVector: {x: 10, y: 15, z: 0}
+  movementVector: {x: 10, y: 13, z: 0}
   period: 10
   movementFactor: 0
 --- !u!1001 &1846662987
