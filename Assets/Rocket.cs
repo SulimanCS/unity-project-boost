@@ -22,6 +22,7 @@ public class Rocket : MonoBehaviour {
   State state = State.Alive;
 
   bool collisionsDisabled = false;
+  bool thrustDisabled = false;
 
   // Start is called before the first frame update
   void Start() {
@@ -40,7 +41,7 @@ public class Rocket : MonoBehaviour {
   }
 
   private void RespondToThrustInput() {
-    if (Input.GetKey(KeyCode.Space)) {
+    if (Input.GetKey(KeyCode.Space) && !thrustDisabled) {
       ApplyThrust();
     }
     else {
@@ -88,6 +89,31 @@ public class Rocket : MonoBehaviour {
         break;
       default:
         StartDeathSequence();
+        break;
+    }
+  }
+
+  void OnTriggerEnter(Collider collider) {
+    if (state != State.Alive || collisionsDisabled) return;
+
+    switch (collider.gameObject.tag) {
+      case "NoThrustZone":
+        thrustDisabled = true;
+        break;
+      default:
+        // print(collider.gameObject.tag);
+        break;
+    }
+  }
+
+  void OnTriggerExit(Collider collider) {
+    if (state != State.Alive || collisionsDisabled) return;
+
+    switch (collider.gameObject.tag) {
+      case "NoThrustZone":
+        thrustDisabled = false;
+        break;
+      default:
         break;
     }
   }
