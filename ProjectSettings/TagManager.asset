@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Friendly
   - NoThrustZone
+  - ScaleZone
   layers:
   - Default
   - TransparentFX
