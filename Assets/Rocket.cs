@@ -17,6 +17,7 @@ public class Rocket : MonoBehaviour {
 
   Rigidbody rigidBody;
   AudioSource audioSource;
+  GameObject rocket;
 
   enum State { Alive, Dying, Transcending }
   State state = State.Alive;
@@ -26,6 +27,7 @@ public class Rocket : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
+    rocket = GameObject.Find("Rocket Ship");
     rigidBody = GetComponent<Rigidbody>();
     audioSource = GetComponent<AudioSource>();
   }
@@ -104,6 +106,24 @@ public class Rocket : MonoBehaviour {
         // print(collider.gameObject.tag);
         break;
     }
+  }
+
+  void OnTriggerStay(Collider collider) {
+    if (state != State.Alive) return;
+
+    switch (collider.gameObject.tag) {
+      case "ScaleZone":
+        IncreaseScale();
+        break;
+      default:
+        break;
+    }
+  }
+
+  private void IncreaseScale() {
+    float increaseFactor = 0.1f * Time.deltaTime;
+    Vector3 newVector = new Vector3(increaseFactor, increaseFactor, increaseFactor);
+    rocket.transform.localScale += newVector;
   }
 
   void OnTriggerExit(Collider collider) {
